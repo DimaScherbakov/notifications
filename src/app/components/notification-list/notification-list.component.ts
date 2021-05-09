@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsService } from '../../services/notifications.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { NotificationInterface } from '../../interfaces/notification.interface';
 
 @Component({
   selector: 'app-notification-list',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationListComponent implements OnInit {
 
-  constructor() { }
+  /**
+   * Поток с оповещениями
+   *
+   * @type {Observable<NotificationInterface[]>}
+   */
+  public notifications$: Observable<NotificationInterface[]> = this.notificationsService.notifications$.asObservable();
+
+  constructor(private notificationsService: NotificationsService) { }
 
   ngOnInit(): void {
   }
