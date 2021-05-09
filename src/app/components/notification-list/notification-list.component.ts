@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NotificationsService } from '../../services/notifications.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { NotificationInterface } from '../../interfaces/notification.interface';
@@ -8,7 +8,7 @@ import { NotificationInterface } from '../../interfaces/notification.interface';
   templateUrl: './notification-list.component.html',
   styleUrls: ['./notification-list.component.css']
 })
-export class NotificationListComponent implements OnInit {
+export class NotificationListComponent {
 
   /**
    * Поток с оповещениями
@@ -17,9 +17,5 @@ export class NotificationListComponent implements OnInit {
    */
   public notifications$: Observable<NotificationInterface[]> = this.notificationsService.notifications$.asObservable();
 
-  constructor(private notificationsService: NotificationsService) { }
-
-  ngOnInit(): void {
-  }
-
+  constructor(private notificationsService: NotificationsService) {}
 }

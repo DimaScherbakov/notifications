@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NotificationInterface } from '../../interfaces/notification.interface';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnChanges {
 
   /**
    * Оповещение
@@ -16,9 +15,34 @@ export class NotificationComponent implements OnInit {
    */
   @Input() public notification: NotificationInterface | null = null;
 
-  constructor() { }
+  /**
+   * Было ли оповещение удалено
+   *
+   * @type {EventEmitter<boolean>}
+   */
+  @Output() isRemoved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  ngOnInit(): void {
+  /**
+   * Время жизни оповещения
+   *
+   * @type {number}
+   * @private
+   */
+  private readonly timeLimit = 3000;
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.notification) {
+      setTimeout(() => this.removeNotification(), this.timeLimit);
+    }
   }
 
+  /**
+   * Удаляет оповещение
+   *
+   * @private
+   */
+  private removeNotification(): void {
+    this.isRemoved.emit(true);
+    this.notification = null;
+  }
 }
