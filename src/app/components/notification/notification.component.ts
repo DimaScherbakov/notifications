@@ -28,7 +28,7 @@ export class NotificationComponent implements OnChanges {
    * @type {number}
    * @private
    */
-  private readonly timeLimit = 3000;
+  private readonly timeLimit = 5000;
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes?.notification) {

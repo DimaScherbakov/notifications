@@ -1,4 +1,6 @@
-<app-notification
-    *ngFor="let notification of notifications$ | async"
-    [notification]="notification"
-></app-notification>
+<ng-container *ngIf=" notifications$ | async">
+    <app-notification
+        *ngFor="let notification of buffer"
+        [notification]="notification"
+    ></app-notification>
+</ng-container>

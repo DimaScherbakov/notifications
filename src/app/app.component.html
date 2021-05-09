@@ -2,5 +2,6 @@
     (click)="emitNotifications()"
 >emit notifications</button>
 
-
-<app-notification-list></app-notification-list>
+<ng-container *ngIf="notificationSource$ | async">
+    <app-notification-list></app-notification-list>
+</ng-container>
