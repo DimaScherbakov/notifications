@@ -1,6 +1,7 @@
 <ng-container *ngIf=" notifications$ | async">
     <app-notification
-        *ngFor="let notification of buffer"
+        *ngFor="let notification of displayedNotifications"
         [notification]="notification"
+        (isRemoved)="removeNotification()"
     ></app-notification>
 </ng-container>

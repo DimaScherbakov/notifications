@@ -11,23 +11,14 @@ import { of } from 'rxjs/internal/observable/of';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'notification';
 
   /**
-   * Notification list
+   * Поток с оповещениями
    *
-   * @type {NotificationInterface[]}
+   * @type {any}
    */
-  notifications: NotificationInterface[] = [
-    {text: 'notification 1'},
-    {text: 'notification 2'},
-    {text: 'notification 3'},
-    {text: 'notification 4'},
-  ];
-
-
-  public notificationSource$ = range(1, 10).pipe(
-      concatMap(i => of(i).pipe(delay(500 + (Math.random() * 1000)))),
+  public notificationSource$ = range(1, 3).pipe(
+      concatMap(index => of(index).pipe(delay(500 + (Math.random() * 1000)))),
   tap(index => {
     const notifications = this.generateRandomNotifications(index);
     this.notificationsService.notifications$.next(notifications);
@@ -35,18 +26,11 @@ export class AppComponent {
 
   constructor(private notificationsService: NotificationsService) {}
 
-  /**
-   * Отправляет оповещения в список
-   */
-  public emitNotifications(): void {
-    this.notificationsService.notifications$.next(this.notifications);
-  }
-
   private generateRandomNotifications(index: number): NotificationInterface[] {
     const notifications = [];
-    const notification: NotificationInterface = {text: `notification ${index}`};
-    const random = Math.floor(Math.random() * 6) + 1;
+    const random = Math.floor(Math.random() * 3) + 1;
     for (let i = random; i !== 0; i--) {
+      const notification: NotificationInterface = {text: `notification ${index}_${i}`};
       notifications.push(notification);
     }
     return notifications;

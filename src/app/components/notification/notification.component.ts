@@ -20,7 +20,7 @@ export class NotificationComponent implements OnChanges {
    *
    * @type {EventEmitter<boolean>}
    */
-  @Output() isRemoved: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isRemoved: EventEmitter<boolean> = new EventEmitter();
 
   /**
    * Время жизни оповещения
@@ -28,7 +28,7 @@ export class NotificationComponent implements OnChanges {
    * @type {number}
    * @private
    */
-  private readonly timeLimit = 5000;
+  private readonly timeLimit = 3000;
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes?.notification) {
@@ -42,7 +42,6 @@ export class NotificationComponent implements OnChanges {
    * @private
    */
   private removeNotification(): void {
-    this.isRemoved.emit(true);
-    this.notification = null;
+    this.isRemoved.emit();
   }
 }
